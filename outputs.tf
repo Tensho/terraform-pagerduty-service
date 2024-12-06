@@ -1,4 +1,4 @@
 output "pagerduty_service" {
   description = "PagerDuty service"
-  value       = pagerduty_service.default
+  value       = var.business ? pagerduty_business_service.default[0] : pagerduty_service.default[0]
 }

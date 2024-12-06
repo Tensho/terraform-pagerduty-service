@@ -87,8 +87,10 @@ No modules.
 | Name | Type |
 |------|------|
 | [pagerduty_alert_grouping_setting.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/alert_grouping_setting) | resource |
+| [pagerduty_business_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/business_service) | resource |
 | [pagerduty_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service) | resource |
 | [pagerduty_escalation_policy.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/data-sources/escalation_policy) | data source |
+| [pagerduty_team.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/data-sources/team) | data source |
 
 ## Inputs
 
@@ -98,12 +100,15 @@ No modules.
 | <a name="input_alert_grouping_setting"></a> [alert\_grouping\_setting](#input\_alert\_grouping\_setting) | PagerDuty service alert grouping configuration. | <pre>object({<br/>    type = string,<br/>    config = object({<br/>      timeout     = optional(number, 0),<br/>      aggregate   = optional(string),<br/>      fields      = optional(list(string)),<br/>      time_window = optional(number, 0),<br/>    })<br/>  })</pre> | `null` | no |
 | <a name="input_auto_pause_notifications_parameters"></a> [auto\_pause\_notifications\_parameters](#input\_auto\_pause\_notifications\_parameters) | PagerDuty service transient incident auto pause before triggering (AIOps add-on). | <pre>object({<br/>    enabled = bool,<br/>    timeout = number,<br/>  })</pre> | <pre>{<br/>  "enabled": false,<br/>  "timeout": null<br/>}</pre> | no |
 | <a name="input_auto_resolve_timeout"></a> [auto\_resolve\_timeout](#input\_auto\_resolve\_timeout) | PagerDuty service incident auto resolution time in seconds. | `string` | `"null"` | no |
+| <a name="input_business"></a> [business](#input\_business) | PagerDuty business service vs technical service switch. | `bool` | `false` | no |
 | <a name="input_description"></a> [description](#input\_description) | PagerDuty service description. | `string` | `"Managed by Terraform"` | no |
-| <a name="input_escalation_policy_name"></a> [escalation\_policy\_name](#input\_escalation\_policy\_name) | PagerDuty service escalation policy name. | `string` | n/a | yes |
+| <a name="input_escalation_policy_name"></a> [escalation\_policy\_name](#input\_escalation\_policy\_name) | PagerDuty service escalation policy name. | `string` | `null` | no |
 | <a name="input_incident_urgency_rule"></a> [incident\_urgency\_rule](#input\_incident\_urgency\_rule) | PagerDuty service incident urgency rule. | <pre>object({<br/>    type    = string<br/>    urgency = optional(string)<br/>    during_support_hours = optional(object({<br/>      type    = string<br/>      urgency = string<br/>    }))<br/>    outside_support_hours = optional(object({<br/>      type    = string<br/>      urgency = string<br/>    }))<br/>  })</pre> | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | PagerDuty service name | `string` | n/a | yes |
+| <a name="input_point_of_contact"></a> [point\_of\_contact](#input\_point\_of\_contact) | PagerDuty business service point fo contact. | `string` | `null` | no |
 | <a name="input_scheduled_actions"></a> [scheduled\_actions](#input\_scheduled\_actions) | PagerDuty service incident escalation actions related within support hours. | <pre>object({<br/>    type       = optional(string, "urgency_change")<br/>    to_urgency = string<br/>    at = object({<br/>      type = optional(string, "named_time")<br/>      name = string<br/>    })<br/>  })</pre> | `null` | no |
 | <a name="input_support_hours"></a> [support\_hours](#input\_support\_hours) | PagerDuty service support hours. | <pre>object({<br/>    type         = optional(string, "fixed_time_per_day")<br/>    time_zone    = string<br/>    days_of_week = list(number)<br/>    start_time   = string<br/>    end_time     = string<br/>  })</pre> | `null` | no |
+| <a name="input_team_name"></a> [team\_name](#input\_team\_name) | PagerDuty business service owner team (Business/Enterprise plan). | `string` | `null` | no |
 
 ## Outputs
 
@@ -133,8 +138,19 @@ export PAGERDUTY_USER_TOKEN=<REDACTED>
 
 ### Development
 
+#### Business Service
+
 ```shell
-cd examples/simple
+cd examples/business-service
+terraform init
+terraform apply
+terraform destroy
+```
+
+#### Technical Service
+
+```shell
+cd examples/technical-service
 terraform init
 terraform apply
 terraform destroy

@@ -1,14 +1,25 @@
+resource "pagerduty_business_service" "default" {
+  count = var.business ? 1 : 0
+
+  name             = var.name
+  description      = var.description
+  point_of_contact = var.point_of_contact
+  team             = data.pagerduty_team.default[0].id
+}
+
 resource "pagerduty_service" "default" {
+  count = var.business ? 0 : 1
+
   name              = var.name
   description       = var.description
-  escalation_policy = data.pagerduty_escalation_policy.default.id
+  escalation_policy = data.pagerduty_escalation_policy.default[0].id
 
   auto_resolve_timeout    = var.auto_resolve_timeout
   acknowledgement_timeout = var.acknowledgement_timeout
 
   auto_pause_notifications_parameters {
-    enabled = var.auto_pause_notifications_parameters["enabled"]
-    timeout = var.auto_pause_notifications_parameters["timeout"]
+    enabled = var.auto_pause_notifications_parameters.enabled
+    timeout = var.auto_pause_notifications_parameters.timeout
   }
 
   dynamic "support_hours" {
@@ -66,9 +77,9 @@ resource "pagerduty_service" "default" {
 }
 
 resource "pagerduty_alert_grouping_setting" "default" {
-  count = var.alert_grouping_setting != null ? 1 : 0
+  count = !var.business && var.alert_grouping_setting != null ? 1 : 0
 
-  services = [pagerduty_service.default.id]
+  services = [pagerduty_service.default[0].id]
 
   name        = "Managed by Terraform"
   description = "Managed by Terraform"

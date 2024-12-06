@@ -53,4 +53,9 @@ module "example" {
       name = "support_hours_start"
     }
   }
+
+  # service_dependencies = {
+  #   business_service_supported = true
+  #   supporting_services_ids    = ["P123456"]
+  # }
 }
