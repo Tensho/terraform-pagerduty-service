@@ -70,7 +70,7 @@ module "example" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.7.0 |
-| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | ~> 3.18 |
+| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 3.18 |
 
 ## Providers
 
