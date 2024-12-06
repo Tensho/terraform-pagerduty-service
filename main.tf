@@ -94,7 +94,7 @@ resource "pagerduty_alert_grouping_setting" "default" {
 }
 
 resource "pagerduty_service_dependency" "dependent" {
-  for_each = { for service in var.service_graph.dependent_services : service.name => { id = service.id, type = service.type } }
+  for_each = { for service in var.service_graph.dependent_services : service.name => service }
 
   dependency {
     dependent_service {
@@ -110,7 +110,7 @@ resource "pagerduty_service_dependency" "dependent" {
 }
 
 resource "pagerduty_service_dependency" "supporting" {
-  for_each = { for service in var.service_graph.supporting_services : service.name => { id = service.id, type = service.type } }
+  for_each = { for service in var.service_graph.supporting_services : service.name => service }
 
   dependency {
     dependent_service {
