@@ -91,6 +91,12 @@ No modules.
 | [pagerduty_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service) | resource |
 | [pagerduty_service_dependency.dependent](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_dependency) | resource |
 | [pagerduty_service_dependency.supporting](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_dependency) | resource |
+| [pagerduty_service_integration.cloudwatch](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_integration) | resource |
+| [pagerduty_service_integration.datadog](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_integration) | resource |
+| [pagerduty_service_integration.newrelic](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_integration) | resource |
+| [pagerduty_vendor.cloudwatch](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/data-sources/vendor) | data source |
+| [pagerduty_vendor.datadog](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/data-sources/vendor) | data source |
+| [pagerduty_vendor.newrelic](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/data-sources/vendor) | data source |
 
 ## Inputs
 
@@ -101,10 +107,13 @@ No modules.
 | <a name="input_auto_pause_notifications_parameters"></a> [auto\_pause\_notifications\_parameters](#input\_auto\_pause\_notifications\_parameters) | PagerDuty service transient incident auto pause before triggering (AIOps add-on). | <pre>object({<br/>    enabled = bool,<br/>    timeout = number,<br/>  })</pre> | <pre>{<br/>  "enabled": false,<br/>  "timeout": null<br/>}</pre> | no |
 | <a name="input_auto_resolve_timeout"></a> [auto\_resolve\_timeout](#input\_auto\_resolve\_timeout) | PagerDuty service incident auto resolution time in seconds. | `string` | `"null"` | no |
 | <a name="input_business"></a> [business](#input\_business) | PagerDuty business service vs technical service switch. | `bool` | `false` | no |
+| <a name="input_cloudwatch_integration_enabled"></a> [cloudwatch\_integration\_enabled](#input\_cloudwatch\_integration\_enabled) | PagerDuty AWS CloudWatch integration switch | `bool` | `false` | no |
+| <a name="input_datadog_integration_enabled"></a> [datadog\_integration\_enabled](#input\_datadog\_integration\_enabled) | PagerDuty DataDog integration switch | `bool` | `false` | no |
 | <a name="input_description"></a> [description](#input\_description) | PagerDuty service description. | `string` | `"Managed by Terraform"` | no |
 | <a name="input_escalation_policy_id"></a> [escalation\_policy\_id](#input\_escalation\_policy\_id) | PagerDuty service escalation policy ID. | `string` | `null` | no |
 | <a name="input_incident_urgency_rule"></a> [incident\_urgency\_rule](#input\_incident\_urgency\_rule) | PagerDuty service incident urgency rule. | <pre>object({<br/>    type    = string<br/>    urgency = optional(string)<br/>    during_support_hours = optional(object({<br/>      type    = string<br/>      urgency = string<br/>    }))<br/>    outside_support_hours = optional(object({<br/>      type    = string<br/>      urgency = string<br/>    }))<br/>  })</pre> | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | PagerDuty service name | `string` | n/a | yes |
+| <a name="input_newrelic_integration_enabled"></a> [newrelic\_integration\_enabled](#input\_newrelic\_integration\_enabled) | PagerDuty NewRelic integration switch | `bool` | `false` | no |
 | <a name="input_point_of_contact"></a> [point\_of\_contact](#input\_point\_of\_contact) | PagerDuty business service point fo contact. | `string` | `null` | no |
 | <a name="input_scheduled_actions"></a> [scheduled\_actions](#input\_scheduled\_actions) | PagerDuty service incident escalation actions related within support hours. | <pre>object({<br/>    type       = optional(string, "urgency_change")<br/>    to_urgency = string<br/>    at = object({<br/>      type = optional(string, "named_time")<br/>      name = string<br/>    })<br/>  })</pre> | `null` | no |
 | <a name="input_service_graph"></a> [service\_graph](#input\_service\_graph) | PagerDuty service graph components. | <pre>object({<br/>    dependent_services = optional(list(object({<br/>      name = string<br/>      id   = string<br/>      type = string<br/>    })))<br/>    supporting_services = optional(list(object({<br/>      name = string<br/>      id   = string<br/>      type = string<br/>    })))<br/>  })</pre> | <pre>{<br/>  "dependent_services": [],<br/>  "supporting_services": []<br/>}</pre> | no |
@@ -115,7 +124,10 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_pagerduty_service"></a> [pagerduty\_service](#output\_pagerduty\_service) | PagerDuty service |
+| <a name="output_cloudwatch_integration_key"></a> [cloudwatch\_integration\_key](#output\_cloudwatch\_integration\_key) | PagerDuty service CloudWatch integration key. |
+| <a name="output_datadog_integration_key"></a> [datadog\_integration\_key](#output\_datadog\_integration\_key) | PagerDuty service DataDog integration key. |
+| <a name="output_newrelic_integration_key"></a> [newrelic\_integration\_key](#output\_newrelic\_integration\_key) | PagerDuty service NewRelic integration key. |
+| <a name="output_pagerduty_service"></a> [pagerduty\_service](#output\_pagerduty\_service) | PagerDuty service. |
 <!-- END_TF_DOCS -->
 
 ## Contributing

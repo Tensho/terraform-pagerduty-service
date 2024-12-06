@@ -81,6 +81,10 @@ module "example" {
       },
     ]
   }
+
+  cloudwatch_integration_enabled = true
+  datadog_integration_enabled    = true
+  newrelic_integration_enabled   = true
 }
 
 module "order_api" {

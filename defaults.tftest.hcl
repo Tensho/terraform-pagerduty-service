@@ -83,4 +83,22 @@ run "defaults" {
 
     error_message = "PagerDuty service supporting services list is empty"
   }
+
+  assert {
+    condition = length(pagerduty_service_integration.cloudwatch) == 0
+
+    error_message = "PagerDuty service CloudWatch integration is disabled"
+  }
+
+  assert {
+    condition = length(pagerduty_service_integration.datadog) == 0
+
+    error_message = "PagerDuty service DataDog integration is disabled"
+  }
+
+  assert {
+    condition = length(pagerduty_service_integration.newrelic) == 0
+
+    error_message = "PagerDuty service NewRelic integration is disabled"
+  }
 }

@@ -140,3 +140,21 @@ variable "service_graph" {
   }
   description = "PagerDuty service graph components."
 }
+
+variable "cloudwatch_integration_enabled" {
+  type        = bool
+  default     = false
+  description = "PagerDuty AWS CloudWatch integration switch"
+}
+
+variable "datadog_integration_enabled" {
+  type        = bool
+  default     = false
+  description = "PagerDuty DataDog integration switch"
+}
+
+variable "newrelic_integration_enabled" {
+  type        = bool
+  default     = false
+  description = "PagerDuty NewRelic integration switch"
+}
