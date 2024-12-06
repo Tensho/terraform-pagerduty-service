@@ -1,6 +1,6 @@
 # PagerDuty Service Terraform Module
 
-Terraform module to manage [PagerDuty service](https://support.pagerduty.com/main/docs/services-and-integrations) (batteries included).
+Terraform module to manage [PagerDuty](https://www.pagerduty.com) service resource (batteries included).
 
 ## Usage
 
@@ -10,7 +10,7 @@ Terraform module to manage [PagerDuty service](https://support.pagerduty.com/mai
 
 ```hcl
 module "example" {
-  source = "git@github.com:Tensho/terraform-pagerduty-service.git?ref=1.0.0"
+  source = "git@github.com:Tensho/terraform-pagerduty-service.git?ref=1.1.0"
 
   auto_resolve_timeout    = 3600
   acknowledgement_timeout = 600
