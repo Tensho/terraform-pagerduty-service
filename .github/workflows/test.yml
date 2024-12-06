@@ -1,0 +1,26 @@
+name: "Test"
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      PAGERDUTY_SERVICE_REGION: ${{ env.PAGERDUTY_SERVICE_REGION }}
+      PAGERDUTY_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
+      PAGERDUTY_USER_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.0"
+
+      - run: terraform fmt -check
+
+      - run: terraform init
+
+      - run: terraform test
