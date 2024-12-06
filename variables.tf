@@ -4,10 +4,10 @@ variable "business" {
   description = "PagerDuty business service vs technical service switch."
 }
 
-variable "team_name" {
+variable "team_id" {
   type        = string
   default     = null
-  description = "PagerDuty business service owner team (Business/Enterprise plan)."
+  description = "PagerDuty business service owner team ID (Business/Enterprise plan)."
 }
 
 variable "point_of_contact" {
@@ -27,10 +27,10 @@ variable "description" {
   description = "PagerDuty service description."
 }
 
-variable "escalation_policy_name" {
+variable "escalation_policy_id" {
   type        = string
   default     = null
-  description = "PagerDuty service escalation policy name."
+  description = "PagerDuty service escalation policy ID."
 }
 
 variable "acknowledgement_timeout" {

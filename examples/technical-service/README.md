@@ -4,7 +4,7 @@ A basic [PagerDuty technical service](https://support.pagerduty.com/main/docs/se
 
 ## Prerequisites
 
-* PagerDuty **escalation policy** resource has to be applied.
+* PagerDuty **escalation policy** resource must exist.
 
 ## Usage
 

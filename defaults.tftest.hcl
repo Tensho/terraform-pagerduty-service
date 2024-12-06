@@ -1,8 +1,8 @@
 # mock_provider "pagerduty" {}
 
 variables {
-  name                   = "Test"
-  escalation_policy_name = "Primary"
+  name                 = "Test"
+  escalation_policy_id = "PBNPJZC"
 }
 
 run "defaults" {

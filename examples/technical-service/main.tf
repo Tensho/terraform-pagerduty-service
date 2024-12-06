@@ -2,7 +2,7 @@ module "example" {
   source = "../../"
 
   name                   = "Example"
-  escalation_policy_name = "Primary"
+  escalation_policy_name = "PBNPJZC"
 
   auto_resolve_timeout    = 3600
   acknowledgement_timeout = 600

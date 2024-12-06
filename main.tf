@@ -4,7 +4,7 @@ resource "pagerduty_business_service" "default" {
   name             = var.name
   description      = var.description
   point_of_contact = var.point_of_contact
-  team             = data.pagerduty_team.default[0].id
+  team             = var.team_id
 }
 
 resource "pagerduty_service" "default" {
@@ -12,7 +12,7 @@ resource "pagerduty_service" "default" {
 
   name              = var.name
   description       = var.description
-  escalation_policy = data.pagerduty_escalation_policy.default[0].id
+  escalation_policy = var.escalation_policy_id
 
   auto_resolve_timeout    = var.auto_resolve_timeout
   acknowledgement_timeout = var.acknowledgement_timeout

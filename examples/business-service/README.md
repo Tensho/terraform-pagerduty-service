@@ -4,7 +4,7 @@ A basic [PagerDuty business service](https://support.pagerduty.com/main/docs/bus
 
 ## Prerequisites
 
-* PagerDuty **team** resource has to be applied.
+* PagerDuty **team** resource must exist.
 
 ## Usage
 
