@@ -14,6 +14,7 @@ module "example" {
   version = "1.3.0"
 
   name                 = "Example"
+  description          = "Example service managed by Terraform"
   escalation_policy_id = pagerduty_escalation_policy.example.id
 
   auto_resolve_timeout    = 3600
