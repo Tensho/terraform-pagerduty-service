@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      PAGERDUTY_SERVICE_REGION: ${{ env.PAGERDUTY_SERVICE_REGION }}
+      PAGERDUTY_SERVICE_REGION: ${{ vars.PAGERDUTY_SERVICE_REGION }}
       PAGERDUTY_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
       PAGERDUTY_USER_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
     steps:
