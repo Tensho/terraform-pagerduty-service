@@ -10,7 +10,11 @@ Terraform module to manage [PagerDuty](https://www.pagerduty.com) service resour
 
 ```hcl
 module "example" {
-  source = "git@github.com:Tensho/terraform-pagerduty-service.git?ref=1.1.0"
+  source  = "Tensho/service/pagerduty"
+  version = "1.3.0"
+
+  name                 = "Example"
+  escalation_policy_id = pagerduty_escalation_policy.example.id
 
   auto_resolve_timeout    = 3600
   acknowledgement_timeout = 600
@@ -146,7 +150,7 @@ pre-commit install --install-hooks
 ```shell
 export PAGERDUTY_SERVICE_REGION=eu
 export PAGERDUTY_TOKEN=<REDACTED>
-export PAGERDUTY_USER_TOKEN=<REDACTED>
+export PAGERDUTY_USER_TOKEN=$PAGERDUTY_TOKEN
 ```
 
 ### Development
