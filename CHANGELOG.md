@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.3.0...v1.3.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* relax provider version ([6c6111f](https://github.com/Tensho/terraform-pagerduty-service/commit/6c6111f5263e220227f7eba9fb3e5a4c490eadf7))
+
 ## [1.3.0](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.2.0...v1.3.0) (2024-12-06)
 
 
