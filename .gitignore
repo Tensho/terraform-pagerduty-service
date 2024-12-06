@@ -1,0 +1,7 @@
+# IntelliJ project files
+.idea
+
+# Terraform
+.terraform
+terraform.tfstate*
+.terraform.lock.hcl
