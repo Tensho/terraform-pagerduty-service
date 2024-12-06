@@ -1,8 +1,8 @@
 module "example" {
   source = "../../"
 
-  name                   = "Example"
-  escalation_policy_name = "PBNPJZC"
+  name                 = "Example"
+  escalation_policy_id = "PBNPJZC"
 
   auto_resolve_timeout    = 3600
   acknowledgement_timeout = 600
@@ -86,27 +86,27 @@ module "example" {
 module "order_api" {
   source = "../../"
 
-  name                   = "Orders API"
-  escalation_policy_name = "Primary"
+  name                 = "Orders API"
+  escalation_policy_id = "PBNPJZC"
 }
 
 module "inventory_api" {
   source = "../../"
 
-  name                   = "Inventory API"
-  escalation_policy_name = "Primary"
+  name                 = "Inventory API"
+  escalation_policy_id = "PBNPJZC"
 }
 
 module "payments_api" {
   source = "../../"
 
-  name                   = "Payments API"
-  escalation_policy_name = "Primary"
+  name                 = "Payments API"
+  escalation_policy_id = "PBNPJZC"
 }
 
 module "shipping_api" {
   source = "../../"
 
-  name                   = "Shipping API"
-  escalation_policy_name = "Primary"
+  name                 = "Shipping API"
+  escalation_policy_id = "PBNPJZC"
 }
