@@ -54,8 +54,59 @@ module "example" {
     }
   }
 
-  # service_dependencies = {
-  #   business_service_supported = true
-  #   supporting_services_ids    = ["P123456"]
-  # }
+  service_graph = {
+    dependent_services = [
+      {
+        name = module.order_api.pagerduty_service.name
+        type = module.order_api.pagerduty_service.type
+        id   = module.order_api.pagerduty_service.id
+      },
+      {
+        name = module.inventory_api.pagerduty_service.name
+        type = module.inventory_api.pagerduty_service.type
+        id   = module.inventory_api.pagerduty_service.id
+      },
+    ]
+
+    supporting_services = [
+      {
+        name = module.payments_api.pagerduty_service.name
+        type = module.payments_api.pagerduty_service.type
+        id   = module.payments_api.pagerduty_service.id
+      },
+      {
+        name = module.shipping_api.pagerduty_service.name
+        type = module.shipping_api.pagerduty_service.type
+        id   = module.shipping_api.pagerduty_service.id
+      },
+    ]
+  }
+}
+
+module "order_api" {
+  source = "../../"
+
+  name                   = "Orders API"
+  escalation_policy_name = "Primary"
+}
+
+module "inventory_api" {
+  source = "../../"
+
+  name                   = "Inventory API"
+  escalation_policy_name = "Primary"
+}
+
+module "payments_api" {
+  source = "../../"
+
+  name                   = "Payments API"
+  escalation_policy_name = "Primary"
+}
+
+module "shipping_api" {
+  source = "../../"
+
+  name                   = "Shipping API"
+  escalation_policy_name = "Primary"
 }

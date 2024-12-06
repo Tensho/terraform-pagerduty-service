@@ -92,3 +92,35 @@ resource "pagerduty_alert_grouping_setting" "default" {
     fields      = var.alert_grouping_setting.config.fields
   }
 }
+
+resource "pagerduty_service_dependency" "dependent" {
+  for_each = { for service in var.service_graph.dependent_services : service.name => { id = service.id, type = service.type } }
+
+  dependency {
+    dependent_service {
+      type = pagerduty_service.default[0].type
+      id   = pagerduty_service.default[0].id
+    }
+
+    supporting_service {
+      type = each.value.type
+      id   = each.value.id
+    }
+  }
+}
+
+resource "pagerduty_service_dependency" "supporting" {
+  for_each = { for service in var.service_graph.supporting_services : service.name => { id = service.id, type = service.type } }
+
+  dependency {
+    dependent_service {
+      type = each.value.type
+      id   = each.value.id
+    }
+
+    supporting_service {
+      type = pagerduty_service.default[0].type
+      id   = pagerduty_service.default[0].id
+    }
+  }
+}

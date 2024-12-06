@@ -5,7 +5,7 @@ Terraform module to manage [PagerDuty](https://www.pagerduty.com) service resour
 ## Usage
 
 > [!WARNING]
-> PagerDuty service can't be created without a reference to an escalation policy.
+> Technical PagerDuty service can't be created without a reference to an escalation policy.
 > Make sure to create an escalation policy before creating a service.
 
 ```hcl
@@ -89,6 +89,8 @@ No modules.
 | [pagerduty_alert_grouping_setting.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/alert_grouping_setting) | resource |
 | [pagerduty_business_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/business_service) | resource |
 | [pagerduty_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service) | resource |
+| [pagerduty_service_dependency.dependent](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_dependency) | resource |
+| [pagerduty_service_dependency.supporting](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_dependency) | resource |
 | [pagerduty_escalation_policy.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/data-sources/escalation_policy) | data source |
 | [pagerduty_team.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/data-sources/team) | data source |
 
@@ -107,6 +109,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | PagerDuty service name | `string` | n/a | yes |
 | <a name="input_point_of_contact"></a> [point\_of\_contact](#input\_point\_of\_contact) | PagerDuty business service point fo contact. | `string` | `null` | no |
 | <a name="input_scheduled_actions"></a> [scheduled\_actions](#input\_scheduled\_actions) | PagerDuty service incident escalation actions related within support hours. | <pre>object({<br/>    type       = optional(string, "urgency_change")<br/>    to_urgency = string<br/>    at = object({<br/>      type = optional(string, "named_time")<br/>      name = string<br/>    })<br/>  })</pre> | `null` | no |
+| <a name="input_service_graph"></a> [service\_graph](#input\_service\_graph) | PagerDuty service graph components. | <pre>object({<br/>    dependent_services = optional(list(object({<br/>      name = string<br/>      id   = string<br/>      type = string<br/>    })))<br/>    supporting_services = optional(list(object({<br/>      name = string<br/>      id   = string<br/>      type = string<br/>    })))<br/>  })</pre> | <pre>{<br/>  "dependent_services": [],<br/>  "supporting_services": []<br/>}</pre> | no |
 | <a name="input_support_hours"></a> [support\_hours](#input\_support\_hours) | PagerDuty service support hours. | <pre>object({<br/>    type         = optional(string, "fixed_time_per_day")<br/>    time_zone    = string<br/>    days_of_week = list(number)<br/>    start_time   = string<br/>    end_time     = string<br/>  })</pre> | `null` | no |
 | <a name="input_team_name"></a> [team\_name](#input\_team\_name) | PagerDuty business service owner team (Business/Enterprise plan). | `string` | `null` | no |
 

@@ -120,3 +120,23 @@ variable "scheduled_actions" {
 
   # TODO: Add validations
 }
+
+variable "service_graph" {
+  type = object({
+    dependent_services = optional(list(object({
+      name = string
+      id   = string
+      type = string
+    })))
+    supporting_services = optional(list(object({
+      name = string
+      id   = string
+      type = string
+    })))
+  })
+  default = {
+    dependent_services  = []
+    supporting_services = []
+  }
+  description = "PagerDuty service graph components."
+}
