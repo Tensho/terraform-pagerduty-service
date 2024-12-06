@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.2.0...v1.3.0) (2024-12-06)
+
+
+### Features
+
+* **pagerduty_service_integration:** add cloudwatch, datadog, and newrelic ([c9f1848](https://github.com/Tensho/terraform-pagerduty-service/commit/c9f1848b63c5b11e9b5352810393a974a38bf81c))
+
 ## [1.2.0](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.1.0...v1.2.0) (2024-12-06)
 
 
