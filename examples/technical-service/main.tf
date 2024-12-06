@@ -1,8 +1,23 @@
+data "pagerduty_users" "all" {}
+
+resource "pagerduty_escalation_policy" "example" {
+  name = "Example"
+
+  rule {
+    escalation_delay_in_minutes = 1
+
+    target {
+      type = "user_reference"
+      id   = data.pagerduty_users.all.users[0].id
+    }
+  }
+}
+
 module "example" {
   source = "../../"
 
   name                 = "Example"
-  escalation_policy_id = "PBNPJZC"
+  escalation_policy_id = pagerduty_escalation_policy.example.id
 
   auto_resolve_timeout    = 3600
   acknowledgement_timeout = 600
@@ -91,26 +106,26 @@ module "order_api" {
   source = "../../"
 
   name                 = "Orders API"
-  escalation_policy_id = "PBNPJZC"
+  escalation_policy_id = pagerduty_escalation_policy.example.id
 }
 
 module "inventory_api" {
   source = "../../"
 
   name                 = "Inventory API"
-  escalation_policy_id = "PBNPJZC"
+  escalation_policy_id = pagerduty_escalation_policy.example.id
 }
 
 module "payments_api" {
   source = "../../"
 
   name                 = "Payments API"
-  escalation_policy_id = "PBNPJZC"
+  escalation_policy_id = pagerduty_escalation_policy.example.id
 }
 
 module "shipping_api" {
   source = "../../"
 
   name                 = "Shipping API"
-  escalation_policy_id = "PBNPJZC"
+  escalation_policy_id = pagerduty_escalation_policy.example.id
 }

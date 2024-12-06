@@ -6,5 +6,4 @@ module "example" {
   name             = "Acme Corp Mega Service"
   description      = "The Acme Corp Mega Service is the most important service in the company."
   point_of_contact = "acme@example.com"
-  team_id          = "P8OZ082"
 }
