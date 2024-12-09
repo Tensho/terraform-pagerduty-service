@@ -69,6 +69,8 @@ module "example" {
 }
 ```
 
+Check out comprehensive examples in [`examples`](./examples) folder.
+
 ## Features
 
 * [x] [PagerDuty business service](https://support.pagerduty.com/main/docs/business-services)
@@ -146,6 +148,8 @@ No modules.
 
 ## Contributing
 
+This project uses [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
 ### Prerequisites
 
 #### MacOS
@@ -183,8 +187,13 @@ terraform apply
 terraform destroy
 ```
 
-## Testing
+### Testing
 
 ```shell
 terraform test -verbose
 ```
+
+### Documentation
+
+* [ ] Update "Usage" section in [`README.md`](./README.md)
+* [ ] Update examples in `examples` folder
