@@ -144,17 +144,32 @@ variable "service_graph" {
 variable "cloudwatch_integration_enabled" {
   type        = bool
   default     = false
-  description = "PagerDuty AWS CloudWatch integration switch"
+  description = "PagerDuty service AWS CloudWatch integration switch."
 }
 
 variable "datadog_integration_enabled" {
   type        = bool
   default     = false
-  description = "PagerDuty DataDog integration switch"
+  description = "PagerDuty service DataDog integration switch."
 }
 
 variable "newrelic_integration_enabled" {
   type        = bool
   default     = false
-  description = "PagerDuty NewRelic integration switch"
+  description = "PagerDuty service NewRelic integration switch."
+}
+
+variable "slack_connection" {
+  type = object({
+    workspace_id      = string,
+    channel_id        = string,
+    notification_type = string,
+    events            = list(string)
+    urgency           = optional(string)
+    priorities        = optional(list(string))
+  })
+  default     = null
+  description = "PagerDuty service Slack connection configuration."
+
+  # TODO: Add validations
 }

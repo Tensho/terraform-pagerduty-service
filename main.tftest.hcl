@@ -101,4 +101,10 @@ run "defaults" {
 
     error_message = "PagerDuty service NewRelic integration is disabled"
   }
+
+  assert {
+    condition = length(pagerduty_slack_connection.default) == 0
+
+    error_message = "PagerDuty service Slack connection is disabled"
+  }
 }

@@ -1,3 +1,6 @@
+#################
+# Prerequisites #
+#################
 data "pagerduty_users" "all" {}
 
 resource "pagerduty_escalation_policy" "example" {
@@ -13,6 +16,9 @@ resource "pagerduty_escalation_policy" "example" {
   }
 }
 
+#################
+# Target module #
+#################
 module "example" {
   source = "../../"
 
@@ -100,8 +106,40 @@ module "example" {
   cloudwatch_integration_enabled = true
   datadog_integration_enabled    = true
   newrelic_integration_enabled   = true
+
+
+  slack_connection = {
+    workspace_id      = "ABCDEFGHI"
+    channel_id        = "ABCDEFGHIJK"
+    notification_type = "responder"
+    events = [
+      "incident.triggered",
+      "incident.acknowledged",
+      "incident.escalated",
+      "incident.reassigned",
+      "incident.annotated",
+      "incident.unacknowledged",
+      "incident.delegated",
+      "incident.priority_updated",
+      "incident.responder.added",
+      "incident.responder.replied",
+      "incident.status_update_published",
+      "incident.reopened",
+      "incident.action_invocation.created",
+      "incident.action_invocation.updated",
+      "incident.action_invocation.terminated",
+      "incident.role.assigned",
+      "incident.incident_type.updated",
+      "incident.resolved",
+    ]
+    urgency    = "high"
+    priorities = ["*"]
+  }
 }
 
+######################
+# Supporting modules #
+######################
 module "order_api" {
   source = "../../"
 
