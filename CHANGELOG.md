@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.3.1...v1.4.0) (2024-12-09)
+
+
+### Features
+
+* **pagerduty_slack_connection:** add resource to composition ([fc6b8a6](https://github.com/Tensho/terraform-pagerduty-service/commit/fc6b8a6cf698746c5431c1d6156a5ad654e5c79b))
+
 ## [1.3.1](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.3.0...v1.3.1) (2024-12-06)
 
 
