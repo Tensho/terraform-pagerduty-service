@@ -155,11 +155,11 @@ This project uses [conventional commits](https://www.conventionalcommits.org/en/
 #### MacOS
 
 ```shell
-brew install pre-commit tswitch terraform-docs tflint
+brew install pre-commit tfswitch terraform-docs tflint
 pre-commit install --install-hooks
 ```
 
-#### Authentication
+#### Provider Authentication
 
 ```shell
 export PAGERDUTY_SERVICE_REGION=eu
