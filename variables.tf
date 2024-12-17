@@ -1,51 +1,52 @@
 variable "business" {
+  description = "PagerDuty business service vs technical service switch."
   type        = bool
   default     = false
-  description = "PagerDuty business service vs technical service switch."
 }
 
 variable "team_id" {
+  description = "PagerDuty business service owner team ID (Business/Enterprise plan)."
   type        = string
   default     = null
-  description = "PagerDuty business service owner team ID (Business/Enterprise plan)."
 }
 
 variable "point_of_contact" {
+  description = "PagerDuty business service point fo contact."
   type        = string
   default     = null
-  description = "PagerDuty business service point fo contact."
 }
 
 variable "name" {
-  type        = string
   description = "PagerDuty service name"
+  type        = string
 }
 
 variable "description" {
+  description = "PagerDuty service description."
   type        = string
   default     = "Managed by Terraform"
-  description = "PagerDuty service description."
 }
 
 variable "escalation_policy_id" {
+  description = "PagerDuty service escalation policy ID."
   type        = string
   default     = null
-  description = "PagerDuty service escalation policy ID."
 }
 
 variable "acknowledgement_timeout" {
+  description = "PagerDuty service incident acknowledged-to-triggered state change time in seconds."
   type        = string
   default     = "null"
-  description = "PagerDuty service incident acknowledged-to-triggered state change time in seconds."
 }
 
 variable "auto_resolve_timeout" {
+  description = "PagerDuty service incident auto resolution time in seconds."
   type        = string
   default     = "null"
-  description = "PagerDuty service incident auto resolution time in seconds."
 }
 
 variable "auto_pause_notifications_parameters" {
+  description = "PagerDuty service transient incident auto pause before triggering (AIOps add-on)."
   type = object({
     enabled = bool,
     timeout = number,
@@ -54,10 +55,11 @@ variable "auto_pause_notifications_parameters" {
     enabled = false
     timeout = null
   }
-  description = "PagerDuty service transient incident auto pause before triggering (AIOps add-on)."
 }
 
 variable "alert_grouping_setting" {
+  description = "PagerDuty service alert grouping configuration."
+
   type = object({
     type = string,
     config = object({
@@ -67,13 +69,15 @@ variable "alert_grouping_setting" {
       time_window = optional(number, 0),
     })
   })
-  default     = null
-  description = "PagerDuty service alert grouping configuration."
+
+  default = null
 
   # TODO: Add validations
 }
 
 variable "support_hours" {
+  description = "PagerDuty service support hours."
+
   type = object({
     type         = optional(string, "fixed_time_per_day")
     time_zone    = string
@@ -81,13 +85,15 @@ variable "support_hours" {
     start_time   = string
     end_time     = string
   })
-  default     = null
-  description = "PagerDuty service support hours."
+
+  default = null
 
   # TODO: Add validations
 }
 
 variable "incident_urgency_rule" {
+  description = "PagerDuty service incident urgency rule."
+
   type = object({
     type    = string
     urgency = optional(string)
@@ -100,13 +106,15 @@ variable "incident_urgency_rule" {
       urgency = string
     }))
   })
-  default     = null
-  description = "PagerDuty service incident urgency rule."
+
+  default = null
 
   # TODO: Add validations
 }
 
 variable "scheduled_actions" {
+  description = "PagerDuty service incident escalation actions related within support hours."
+
   type = object({
     type       = optional(string, "urgency_change")
     to_urgency = string
@@ -115,13 +123,15 @@ variable "scheduled_actions" {
       name = string
     })
   })
-  default     = null
-  description = "PagerDuty service incident escalation actions related within support hours."
+
+  default = null
 
   # TODO: Add validations
 }
 
 variable "service_graph" {
+  description = "PagerDuty service graph components."
+
   type = object({
     dependent_services = optional(list(object({
       name = string
@@ -134,32 +144,34 @@ variable "service_graph" {
       type = string
     })))
   })
+
   default = {
     dependent_services  = []
     supporting_services = []
   }
-  description = "PagerDuty service graph components."
 }
 
 variable "cloudwatch_integration_enabled" {
+  description = "PagerDuty service AWS CloudWatch integration switch."
   type        = bool
   default     = false
-  description = "PagerDuty service AWS CloudWatch integration switch."
 }
 
 variable "datadog_integration_enabled" {
+  description = "PagerDuty service DataDog integration switch."
   type        = bool
   default     = false
-  description = "PagerDuty service DataDog integration switch."
 }
 
 variable "newrelic_integration_enabled" {
+  description = "PagerDuty service NewRelic integration switch."
   type        = bool
   default     = false
-  description = "PagerDuty service NewRelic integration switch."
 }
 
 variable "slack_connection" {
+  description = "PagerDuty service Slack connection configuration."
+
   type = object({
     workspace_id      = string,
     channel_id        = string,
@@ -168,8 +180,8 @@ variable "slack_connection" {
     urgency           = optional(string)
     priorities        = optional(list(string))
   })
-  default     = null
-  description = "PagerDuty service Slack connection configuration."
+
+  default = null
 
   # TODO: Add validations
 }
