@@ -4,7 +4,7 @@ A basic [PagerDuty business service](https://support.pagerduty.com/main/docs/bus
 
 ## Prerequisites
 
-* PagerDuty **team** resource must exist.
+* Export `PAGERDUTY_TOKEN` environment variable with a valid PagerDuty API user token.
 
 ## Usage
 
