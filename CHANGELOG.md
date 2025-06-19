@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.4.0...v1.5.0) (2025-06-19)
+
+
+### Features
+
+* **pagerduty_event_orchestration_service:** add resource to composition ([e6ee030](https://github.com/Tensho/terraform-pagerduty-service/commit/e6ee030837e5848bec9ff26c0689105cc965c48c))
+
 ## [1.4.0](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.3.1...v1.4.0) (2024-12-09)
 
 
