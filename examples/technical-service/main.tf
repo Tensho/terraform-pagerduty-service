@@ -16,6 +16,17 @@ resource "pagerduty_escalation_policy" "example" {
   }
 }
 
+data "pagerduty_priority" "p1" {
+  name = "P1"
+}
+
+resource "pagerduty_incident_custom_field" "impact" {
+  name         = "impact"
+  display_name = "Impact"
+  field_type   = "single_value"
+  data_type    = "string"
+}
+
 #################
 # Target module #
 #################
@@ -107,7 +118,6 @@ module "example" {
   datadog_integration_enabled    = true
   newrelic_integration_enabled   = true
 
-
   slack_connection = {
     workspace_id      = "ABCDEFGHI"
     channel_id        = "ABCDEFGHIJK"
@@ -134,6 +144,127 @@ module "example" {
     ]
     urgency    = "high"
     priorities = ["*"]
+  }
+
+  event_orchestration = {
+    enable_event_orchestration_for_service = true
+
+    sets = [
+      {
+        id = "start"
+
+        rules = [
+          {
+            label = "Suppress morning alerts"
+
+            condition = {
+              expression = "now in Mon,Tue,Wed,Thu,Fri,Sat,Sun 06:00:00 to 07:00:00 Europe/London"
+            }
+
+            actions = {
+              suppress = true
+            }
+          },
+          {
+            label = "Apply consistent transformations"
+
+            actions = {
+              variable = {
+                name  = "hostname"
+                path  = "event.component"
+                value = "hostname: (.*)"
+                type  = "regex"
+              }
+
+              extraction = {
+                template = "{{variables.hostname}}"
+                target   = "event.custom_details.hostname"
+              }
+
+              extraction = {
+                source = "event.source"
+                regex  = "www (.*) service"
+                target = "event.source"
+              }
+
+              route_to = "step-two"
+            }
+          }
+        ]
+      },
+      {
+        id = "step-two"
+
+        rules = [
+          {
+            label = "All critical alerts should be treated as P1 incident"
+
+            condition = {
+              expression = "event.severity matches 'critical'"
+            }
+
+            actions = {
+              annotate = "Please use our P1 runbook: https://docs.test/p1-runbook"
+              priority = data.pagerduty_priority.p1.id
+
+              incident_custom_field_update = {
+                id    = pagerduty_incident_custom_field.impact.id
+                value = "High Impact"
+              }
+            }
+          },
+          {
+            label = "If there's something wrong on the canary let the team know about it in our deployments Slack channel"
+            condition = {
+              expression = "event.custom_details.hostname matches part 'canary'"
+            }
+
+            actions = {
+              automation_action = {
+                name          = "Canary Slack Notification"
+                url           = "https://our-slack-listerner.test/canary-notification"
+                auto_send     = true
+                trigger_types = ["alert_triggered"]
+
+                parameter = {
+                  key   = "channel"
+                  value = "#my-team-channel"
+                }
+
+                parameter = {
+                  key   = "message"
+                  value = "something is wrong with the canary deployment"
+                }
+
+                header = {
+                  key   = "X-Notification-Source"
+                  value = "PagerDuty Incident Webhook"
+                }
+              }
+            }
+          },
+          {
+            label = "Never bother the on-call for info-level events outside of work hours, and let an Automation Action fix it instead"
+            condition = {
+              expression = "event.severity matches 'info' and not (now in Mon,Tue,Wed,Thu,Fri 09:00:00 to 17:00:00 America/Los_Angeles)"
+            }
+            actions = {
+              suppress = true
+              pagerduty_automation_action = {
+                action_id     = "01FJV5A8OA5MKHOYFHV35SM2Z0"
+                trigger_types = ["alert_suppressed"]
+              }
+            }
+          }
+        ]
+      }
+    ]
+
+    catch_all = {
+      actions = {
+        route_to = "unrouted"
+      }
+    }
   }
 }
 

@@ -65,7 +65,7 @@ variable "alert_grouping_setting" {
     config = object({
       timeout     = optional(number, 0),
       aggregate   = optional(string),
-      fields      = optional(list(string)),
+      fields      = optional(list(string), []),
       time_window = optional(number, 0),
     })
   })
@@ -179,6 +179,82 @@ variable "slack_connection" {
     events            = list(string)
     urgency           = optional(string)
     priorities        = optional(list(string))
+  })
+
+  default = null
+
+  # TODO: Add validations
+}
+
+variable "event_orchestration" {
+  description = "PagerDuty service event orchestration configuration."
+
+  type = object({
+    enable_event_orchestration_for_service = optional(bool, true)
+    sets = optional(list(object({
+      id = string
+      rules = list(object({
+        label = optional(string)
+        condition = optional(object({
+          expression = string
+        }))
+        actions = object({
+          annotate             = optional(string)
+          escalation_policy_id = optional(string)
+          priority_id          = optional(string)
+          route_to             = optional(string)
+          suppress             = optional(bool)
+          suspend_seconds      = optional(number)
+          variables = optional(list(object({
+            name  = string
+            path  = string
+            value = string
+            type  = string
+          })), [])
+          extractions = optional(list(object({
+            target   = string
+            template = optional(string)
+            source   = optional(string)
+            regex    = optional(string)
+          })), [])
+          incident_custom_field_updates = optional(list(object({
+            id    = string
+            value = string
+          })), [])
+          automation_action = optional(object({
+            name          = string
+            url           = string
+            auto_send     = optional(bool, false)
+            trigger_types = optional(list(string), [])
+            parameters = optional(list(object({
+              key   = string
+              value = string
+            })), [])
+            headers = optional(list(object({
+              key   = string
+              value = string
+            })), [])
+          }))
+          pagerduty_automation_action = optional(object({
+            action_id     = string
+            trigger_types = optional(list(string), [])
+          }))
+        })
+      }))
+    })), [])
+    catch_all = optional(object({
+      actions = object({
+        annotate             = optional(string)
+        escalation_policy_id = optional(string)
+        priority_id          = optional(string)
+        suppress             = optional(bool)
+        suspend_seconds      = optional(number)
+        pagerduty_automation_action = optional(object({
+          action_id     = string
+          trigger_types = optional(list(string), [])
+        }))
+      })
+    }))
   })
 
   default = null

@@ -11,7 +11,7 @@ Terraform module to manage [PagerDuty](https://www.pagerduty.com) service resour
 ```hcl
 module "example" {
   source  = "Tensho/service/pagerduty"
-  version = "1.3.0"
+  version = "1.4.0"
 
   name                 = "Example"
   description          = "Example service managed by Terraform"
@@ -66,6 +66,36 @@ module "example" {
       name = "support_hours_start"
     }
   }
+  
+  event_orchestration = {
+    enable_event_orchestration_for_service = true
+
+    sets = [
+      {
+        id = "start"
+
+        rules = [
+          {
+            label = "Suppress morning alerts"
+
+            condition = {
+              expression = "now in Mon,Tue,Wed,Thu,Fri,Sat,Sun 06:00:00 to 07:00:00 Europe/London"
+            }
+
+            actions = {
+              suppress = true
+            }
+          }
+        ]
+      }
+    ]
+
+    catch_all = {
+      actions = {
+        route_to = "unrouted"
+      }
+    }
+  }
 }
 ```
 
@@ -77,6 +107,7 @@ Check out comprehensive examples in [`examples`](./examples) folder.
 * [x] [PagerDuty service alert grouping](https://support.pagerduty.com/main/docs/intelligent-alert-grouping) (AIOps add-on)
 * [x] [PagerDuty service graph](https://support.pagerduty.com/main/docs/service-graph)
 * [x] [PagerDuty service Slack integration](https://support.pagerduty.com/main/docs/slack-integration-guide)
+* [x] [PagerDuty service event orchestration](https://support.pagerduty.com/main/docs/event-orchestration#service-orchestrations)
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -84,7 +115,7 @@ Check out comprehensive examples in [`examples`](./examples) folder.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.7.0 |
-| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 3.18 |
+| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 3.26 |
 
 ## Providers
 
@@ -102,6 +133,7 @@ No modules.
 |------|------|
 | [pagerduty_alert_grouping_setting.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/alert_grouping_setting) | resource |
 | [pagerduty_business_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/business_service) | resource |
+| [pagerduty_event_orchestration_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/event_orchestration_service) | resource |
 | [pagerduty_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service) | resource |
 | [pagerduty_service_dependency.dependent](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_dependency) | resource |
 | [pagerduty_service_dependency.supporting](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_dependency) | resource |
@@ -118,7 +150,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_acknowledgement_timeout"></a> [acknowledgement\_timeout](#input\_acknowledgement\_timeout) | PagerDuty service incident acknowledged-to-triggered state change time in seconds. | `string` | `"null"` | no |
-| <a name="input_alert_grouping_setting"></a> [alert\_grouping\_setting](#input\_alert\_grouping\_setting) | PagerDuty service alert grouping configuration. | <pre>object({<br/>    type = string,<br/>    config = object({<br/>      timeout     = optional(number, 0),<br/>      aggregate   = optional(string),<br/>      fields      = optional(list(string)),<br/>      time_window = optional(number, 0),<br/>    })<br/>  })</pre> | `null` | no |
+| <a name="input_alert_grouping_setting"></a> [alert\_grouping\_setting](#input\_alert\_grouping\_setting) | PagerDuty service alert grouping configuration. | <pre>object({<br/>    type = string,<br/>    config = object({<br/>      timeout     = optional(number, 0),<br/>      aggregate   = optional(string),<br/>      fields      = optional(list(string), []),<br/>      time_window = optional(number, 0),<br/>    })<br/>  })</pre> | `null` | no |
 | <a name="input_auto_pause_notifications_parameters"></a> [auto\_pause\_notifications\_parameters](#input\_auto\_pause\_notifications\_parameters) | PagerDuty service transient incident auto pause before triggering (AIOps add-on). | <pre>object({<br/>    enabled = bool,<br/>    timeout = number,<br/>  })</pre> | <pre>{<br/>  "enabled": false,<br/>  "timeout": null<br/>}</pre> | no |
 | <a name="input_auto_resolve_timeout"></a> [auto\_resolve\_timeout](#input\_auto\_resolve\_timeout) | PagerDuty service incident auto resolution time in seconds. | `string` | `"null"` | no |
 | <a name="input_business"></a> [business](#input\_business) | PagerDuty business service vs technical service switch. | `bool` | `false` | no |
@@ -126,6 +158,7 @@ No modules.
 | <a name="input_datadog_integration_enabled"></a> [datadog\_integration\_enabled](#input\_datadog\_integration\_enabled) | PagerDuty service DataDog integration switch. | `bool` | `false` | no |
 | <a name="input_description"></a> [description](#input\_description) | PagerDuty service description. | `string` | `"Managed by Terraform"` | no |
 | <a name="input_escalation_policy_id"></a> [escalation\_policy\_id](#input\_escalation\_policy\_id) | PagerDuty service escalation policy ID. | `string` | `null` | no |
+| <a name="input_event_orchestration"></a> [event\_orchestration](#input\_event\_orchestration) | PagerDuty service event orchestration configuration. | <pre>object({<br/>    enable_event_orchestration_for_service = optional(bool, true)<br/>    sets = optional(list(object({<br/>      id = string<br/>      rules = list(object({<br/>        label = optional(string)<br/>        condition = optional(object({<br/>          expression = string<br/>        }))<br/>        actions = object({<br/>          annotate             = optional(string)<br/>          escalation_policy_id = optional(string)<br/>          priority_id          = optional(string)<br/>          route_to             = optional(string)<br/>          suppress             = optional(bool)<br/>          suspend_seconds      = optional(number)<br/>          variables = optional(list(object({<br/>            name  = string<br/>            path  = string<br/>            value = string<br/>            type  = string<br/>          })), [])<br/>          extractions = optional(list(object({<br/>            target   = string<br/>            template = optional(string)<br/>            source   = optional(string)<br/>            regex    = optional(string)<br/>          })), [])<br/>          incident_custom_field_updates = optional(list(object({<br/>            id    = string<br/>            value = string<br/>          })), [])<br/>          automation_action = optional(object({<br/>            name          = string<br/>            url           = string<br/>            auto_send     = optional(bool, false)<br/>            trigger_types = optional(list(string), [])<br/>            parameters = optional(list(object({<br/>              key   = string<br/>              value = string<br/>            })), [])<br/>            headers = optional(list(object({<br/>              key   = string<br/>              value = string<br/>            })), [])<br/>          }))<br/>          pagerduty_automation_action = optional(object({<br/>            action_id     = string<br/>            trigger_types = optional(list(string), [])<br/>          }))<br/>        })<br/>      }))<br/>    })), [])<br/>    catch_all = optional(object({<br/>      actions = object({<br/>        annotate             = optional(string)<br/>        escalation_policy_id = optional(string)<br/>        priority_id          = optional(string)<br/>        suppress             = optional(bool)<br/>        suspend_seconds      = optional(number)<br/>        pagerduty_automation_action = optional(object({<br/>          action_id     = string<br/>          trigger_types = optional(list(string), [])<br/>        }))<br/>      })<br/>    }))<br/>  })</pre> | `null` | no |
 | <a name="input_incident_urgency_rule"></a> [incident\_urgency\_rule](#input\_incident\_urgency\_rule) | PagerDuty service incident urgency rule. | <pre>object({<br/>    type    = string<br/>    urgency = optional(string)<br/>    during_support_hours = optional(object({<br/>      type    = string<br/>      urgency = string<br/>    }))<br/>    outside_support_hours = optional(object({<br/>      type    = string<br/>      urgency = string<br/>    }))<br/>  })</pre> | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | PagerDuty service name | `string` | n/a | yes |
 | <a name="input_newrelic_integration_enabled"></a> [newrelic\_integration\_enabled](#input\_newrelic\_integration\_enabled) | PagerDuty service NewRelic integration switch. | `bool` | `false` | no |
@@ -157,6 +190,7 @@ This project uses [conventional commits](https://www.conventionalcommits.org/en/
 ```shell
 brew install pre-commit tfswitch terraform-docs tflint
 pre-commit install --install-hooks
+tflint --init
 ```
 
 #### Provider Authentication
@@ -190,7 +224,9 @@ terraform destroy
 ### Testing
 
 ```shell
-terraform test -verbose
+terraform init
+terraform test
+terraform test -filter main.tftest.hcl -verbose
 ```
 
 ### Documentation
