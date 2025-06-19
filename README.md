@@ -11,7 +11,7 @@ Terraform module to manage [PagerDuty](https://www.pagerduty.com) service resour
 ```hcl
 module "example" {
   source  = "Tensho/service/pagerduty"
-  version = "1.4.0"
+  version = "1.5.0"
 
   name                 = "Example"
   description          = "Example service managed by Terraform"
