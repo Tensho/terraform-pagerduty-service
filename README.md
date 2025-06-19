@@ -121,7 +121,7 @@ Check out comprehensive examples in [`examples`](./examples) folder.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | 3.18.1 |
+| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | 3.26.2  |
 
 ## Modules
 
