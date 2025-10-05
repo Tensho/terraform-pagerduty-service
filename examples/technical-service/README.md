@@ -4,15 +4,13 @@ A basic [PagerDuty technical service](https://support.pagerduty.com/main/docs/se
 
 ## Usage
 
+[Authorise Slack workspace in PagerDuty](https://support.pagerduty.com/main/docs/slack-integration-guide#initial-configuration).
+
 ```shell
 export PAGERDUTY_TOKEN=<REDACTED>
 export PAGERDUTY_USER_TOKEN=$PAGERDUTY_TOKEN
+export TF_VAR_slack_workspace_id=<REDACTED>
+export TF_VAR_slack_channel_id=<REDACTED> 
 terraform init
 terraform apply
 ```
-
-### Slack Integration
-
-* [Authorise Slack workspace in PagerDuty](https://support.pagerduty.com/main/docs/slack-integration-guide#initial-configuration).
-* Replace `workspace_id` parameter with your own Slack workspace ID.
-* Replace `channel_id` parameter with your own Slack channel ID.
