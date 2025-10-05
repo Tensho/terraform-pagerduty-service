@@ -173,7 +173,7 @@ variable "slack_connection" {
   description = "PagerDuty service Slack connection configuration."
 
   type = object({
-    workspace_id      = string,
+    workspace_id      = optional(string), # `SLACK_CONNECTION_WORKSPACE_ID` env var
     channel_id        = string,
     notification_type = string,
     events            = list(string)

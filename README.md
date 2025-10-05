@@ -115,13 +115,13 @@ Check out comprehensive examples in [`examples`](./examples) folder.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.7.0 |
-| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 3.26 |
+| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | ~> 3.26 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | 3.26.2  |
+| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | 3.30.1 |
 
 ## Modules
 
@@ -165,7 +165,7 @@ No modules.
 | <a name="input_point_of_contact"></a> [point\_of\_contact](#input\_point\_of\_contact) | PagerDuty business service point fo contact. | `string` | `null` | no |
 | <a name="input_scheduled_actions"></a> [scheduled\_actions](#input\_scheduled\_actions) | PagerDuty service incident escalation actions related within support hours. | <pre>object({<br/>    type       = optional(string, "urgency_change")<br/>    to_urgency = string<br/>    at = object({<br/>      type = optional(string, "named_time")<br/>      name = string<br/>    })<br/>  })</pre> | `null` | no |
 | <a name="input_service_graph"></a> [service\_graph](#input\_service\_graph) | PagerDuty service graph components. | <pre>object({<br/>    dependent_services = optional(list(object({<br/>      name = string<br/>      id   = string<br/>      type = string<br/>    })))<br/>    supporting_services = optional(list(object({<br/>      name = string<br/>      id   = string<br/>      type = string<br/>    })))<br/>  })</pre> | <pre>{<br/>  "dependent_services": [],<br/>  "supporting_services": []<br/>}</pre> | no |
-| <a name="input_slack_connection"></a> [slack\_connection](#input\_slack\_connection) | PagerDuty service Slack connection configuration. | <pre>object({<br/>    workspace_id      = string,<br/>    channel_id        = string,<br/>    notification_type = string,<br/>    events            = list(string)<br/>    urgency           = optional(string)<br/>    priorities        = optional(list(string))<br/>  })</pre> | `null` | no |
+| <a name="input_slack_connection"></a> [slack\_connection](#input\_slack\_connection) | PagerDuty service Slack connection configuration. | <pre>object({<br/>    workspace_id      = optional(string), # `SLACK_CONNECTION_WORKSPACE_ID` env var<br/>    channel_id        = string,<br/>    notification_type = string,<br/>    events            = list(string)<br/>    urgency           = optional(string)<br/>    priorities        = optional(list(string))<br/>  })</pre> | `null` | no |
 | <a name="input_support_hours"></a> [support\_hours](#input\_support\_hours) | PagerDuty service support hours. | <pre>object({<br/>    type         = optional(string, "fixed_time_per_day")<br/>    time_zone    = string<br/>    days_of_week = list(number)<br/>    start_time   = string<br/>    end_time     = string<br/>  })</pre> | `null` | no |
 | <a name="input_team_id"></a> [team\_id](#input\_team\_id) | PagerDuty business service owner team ID (Business/Enterprise plan). | `string` | `null` | no |
 
@@ -195,6 +195,17 @@ tflint --init
 
 #### Provider Authentication
 
+Consider environment variables management for Terraform provider authentication via `.env` file, which [mise](https://mise.jdx.dev/)
+picks up automatically:
+
+```
+PAGERDUTY_SERVICE_REGION=eu
+PAGERDUTY_TOKEN=<REDACTED>
+PAGERDUTY_USER_TOKEN=$PAGERDUTY_TOKEN
+```
+
+##### PagerDuty
+
 ```shell
 export PAGERDUTY_SERVICE_REGION=eu
 export PAGERDUTY_TOKEN=<REDACTED>
@@ -223,13 +234,9 @@ terraform destroy
 
 ### Testing
 
+The `terraform test` command looks for `*.tftest.hcl` files in both root directory and `tests` directory.
+
 ```shell
 terraform init
 terraform test
-terraform test -filter main.tftest.hcl -verbose
-```
-
-### Documentation
-
-* [ ] Update "Usage" section in [`README.md`](./README.md)
-* [ ] Update examples in `examples` folder
+terraform test -filter tests/main.tftest.hcl -verbose

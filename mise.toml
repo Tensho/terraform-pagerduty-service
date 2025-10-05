@@ -1,0 +1,8 @@
+[tools]
+pre-commit = "latest"
+terraform = "latest"
+terraform-docs = "latest"
+tflint = "latest"
+
+[env]
+_.file = '.env'

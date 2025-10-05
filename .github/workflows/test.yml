@@ -5,13 +5,14 @@ on:
     branches:
       - '**'
 
+env:
+  PAGERDUTY_SERVICE_REGION: ${{ vars.PAGERDUTY_SERVICE_REGION }}
+  PAGERDUTY_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
+  PAGERDUTY_USER_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      PAGERDUTY_SERVICE_REGION: ${{ vars.PAGERDUTY_SERVICE_REGION }}
-      PAGERDUTY_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
-      PAGERDUTY_USER_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -24,3 +25,20 @@ jobs:
       - run: terraform init
 
       - run: terraform test
+  example:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.0"
+
+      - run: terraform init
+        working-directory: ./examples/technical-service
+
+      - run: terraform apply -auto-approve
+        working-directory: ./examples/technical-service
+
+      - run: terraform destroy -auto-approve
+        working-directory: ./examples/technical-service

@@ -119,8 +119,8 @@ module "example" {
   newrelic_integration_enabled   = true
 
   slack_connection = {
-    workspace_id      = "ABCDEFGHI"
-    channel_id        = "ABCDEFGHIJK"
+    workspace_id      = var.slack_workspace_id
+    channel_id        = var.slack_channel_id
     notification_type = "responder"
     events = [
       "incident.triggered",
