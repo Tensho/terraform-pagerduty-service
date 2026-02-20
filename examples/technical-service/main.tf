@@ -114,12 +114,6 @@ module "example" {
     ]
   }
 
-  maintenance_window = {
-    start_time  = "2026-03-01T20:00:00-05:00"
-    end_time    = "2026-03-01T22:00:00-05:00"
-    description = "Scheduled maintenance for database migration"
-  }
-
   cloudwatch_integration_enabled = true
   datadog_integration_enabled    = true
   newrelic_integration_enabled   = true
@@ -273,6 +267,12 @@ module "example" {
         route_to = "unrouted"
       }
     }
+  }
+
+  maintenance_window = {
+    start_time  = "2042-03-01T20:00:00-05:00"
+    end_time    = "2042-03-01T22:00:00-05:00"
+    description = "Database migration scheduled maintenance"
   }
 }
 

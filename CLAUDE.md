@@ -49,7 +49,7 @@ The module follows a one-file-per-feature pattern at the root:
 - **`main.tf`** — Core resources. Conditionally creates `pagerduty_business_service` OR `pagerduty_service` based on the `var.business` boolean. Also manages service dependencies.
 - **`variables.tf`** — All input variables with complex nested object types.
 - **`outputs.tf`** — Service object and integration keys.
-- **`integrations.tf`** — CloudWatch, DataDog, NewRelic service integrations.
+- **`integration.tf`** — CloudWatch, DataDog, NewRelic service integrations.
 - **`alert_grouping_setting.tf`** — AIOps alert grouping configuration.
 - **`event_orchestration.tf`** — Event orchestration rules and automation actions.
 - **`slack_connection.tf`** — Slack connection resource.
@@ -59,7 +59,8 @@ The module follows a one-file-per-feature pattern at the root:
 ### Tests
 
 - `main.tftest.hcl` — Comprehensive assertions against default and feature behavior (runs against real PagerDuty API).
-- `integrations.tftest.hcl` — Integration tests using mocked provider data.
+- `integration.tftest.hcl` — Integration (NewRelic, DataDog, CloudWatch) tests using mocked provider data.
+- `maintenance_window.tftest.hcl` — Maintenance window tests using mocked provider data.
 
 ### Examples
 
