@@ -1,4 +1,5 @@
 [tools]
+act = "latest"
 prek = "latest"
 terraform = "latest"
 terraform-docs = "latest"
