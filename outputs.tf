@@ -3,6 +3,11 @@ output "pagerduty_service" {
   description = "PagerDuty service."
 }
 
+output "pagerduty_maintenance_window" {
+  value       = length(pagerduty_maintenance_window.default) > 0 ? pagerduty_maintenance_window.default[0] : null
+  description = "PagerDuty service maintenance window."
+}
+
 output "cloudwatch_integration_key" {
   value       = length(pagerduty_service_integration.cloudwatch) > 0 ? pagerduty_service_integration.cloudwatch[0].integration_key : null
   description = "PagerDuty service CloudWatch integration key."
