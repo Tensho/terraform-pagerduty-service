@@ -11,7 +11,7 @@ Terraform module to manage [PagerDuty](https://www.pagerduty.com) service resour
 ```hcl
 module "example" {
   source  = "Tensho/service/pagerduty"
-  version = "1.5.0"
+  version = "1.6.0"
 
   name                 = "Example"
   description          = "Example service managed by Terraform"
@@ -96,6 +96,12 @@ module "example" {
       }
     }
   }
+
+  maintenance_window = {
+    start_time  = "2042-03-01T20:00:00-05:00"
+    end_time    = "2042-03-01T22:00:00-05:00"
+    description = "Scheduled maintenance (managed by Terraform)"
+  }
 }
 ```
 
@@ -108,6 +114,7 @@ Check out comprehensive examples in [`examples`](./examples) folder.
 * [x] [PagerDuty service graph](https://support.pagerduty.com/main/docs/service-graph)
 * [x] [PagerDuty service Slack integration](https://support.pagerduty.com/main/docs/slack-integration-guide)
 * [x] [PagerDuty service event orchestration](https://support.pagerduty.com/main/docs/event-orchestration#service-orchestrations)
+* [x] [PagerDuty service maintenance window](https://support.pagerduty.com/main/docs/maintenance-windows)
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

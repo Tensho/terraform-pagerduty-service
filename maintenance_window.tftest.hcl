@@ -5,8 +5,8 @@ variables {
   escalation_policy_id = "ABCDEFG"
 
   maintenance_window = {
-    start_time  = "2026-03-01T20:00:00-05:00"
-    end_time    = "2026-03-01T22:00:00-05:00"
+    start_time  = "2042-03-01T20:00:00-05:00"
+    end_time    = "2042-03-01T22:00:00-05:00"
     description = "Scheduled maintenance (managed by Terraform)"
   }
 }

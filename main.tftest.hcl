@@ -122,8 +122,8 @@ run "defaults" {
 run "maintenance_window" {
   variables {
     maintenance_window = {
-      start_time  = "2026-03-01T20:00:00-05:00"
-      end_time    = "2026-03-01T22:00:00-05:00"
+      start_time  = "2026-02-20T14:00:00-05:00"
+      end_time    = "2026-02-20T16:00:00-05:00"
       description = "Scheduled maintenance (managed by Terraform)"
     }
   }
