@@ -186,6 +186,18 @@ variable "slack_connection" {
   # TODO: Add validations
 }
 
+variable "maintenance_window" {
+  description = "PagerDuty service maintenance window configuration."
+
+  type = object({
+    start_time  = string
+    end_time    = string
+    description = optional(string, "Managed by Terraform")
+  })
+
+  default = null
+}
+
 variable "event_orchestration" {
   description = "PagerDuty service event orchestration configuration."
 

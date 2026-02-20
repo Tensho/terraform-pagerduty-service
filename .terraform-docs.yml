@@ -1,0 +1,4 @@
+settings:
+  # Disable .terraform.lock.hcl file reading so the provider version in the README reflects the
+  # constraint declared in versions.tf (~> 3.26) rather than the exact version resolved in .terraform.lock.hcl.
+  lockfile: false

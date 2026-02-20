@@ -114,6 +114,12 @@ module "example" {
     ]
   }
 
+  maintenance_window = {
+    start_time  = "2026-03-01T20:00:00-05:00"
+    end_time    = "2026-03-01T22:00:00-05:00"
+    description = "Scheduled maintenance for database migration"
+  }
+
   cloudwatch_integration_enabled = true
   datadog_integration_enabled    = true
   newrelic_integration_enabled   = true
@@ -176,16 +182,17 @@ module "example" {
                 type  = "regex"
               }
 
-              extraction = {
-                template = "{{variables.hostname}}"
-                target   = "event.custom_details.hostname"
-              }
-
-              extraction = {
-                source = "event.source"
-                regex  = "www (.*) service"
-                target = "event.source"
-              }
+              extractions = [
+                {
+                  template = "{{variables.hostname}}"
+                  target   = "event.custom_details.hostname"
+                },
+                {
+                  source = "event.source"
+                  regex  = "www (.*) service"
+                  target = "event.source"
+                }
+              ]
 
               route_to = "step-two"
             }
@@ -226,15 +233,16 @@ module "example" {
                 auto_send     = true
                 trigger_types = ["alert_triggered"]
 
-                parameter = {
-                  key   = "channel"
-                  value = "#my-team-channel"
-                }
-
-                parameter = {
-                  key   = "message"
-                  value = "something is wrong with the canary deployment"
-                }
+                parameters = [
+                  {
+                    key   = "channel"
+                    value = "#my-team-channel"
+                  },
+                  {
+                    key   = "message"
+                    value = "something is wrong with the canary deployment"
+                  }
+                ]
 
                 header = {
                   key   = "X-Notification-Source"

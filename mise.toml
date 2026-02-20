@@ -1,5 +1,6 @@
 [tools]
-pre-commit = "latest"
+act = "latest"
+prek = "latest"
 terraform = "latest"
 terraform-docs = "latest"
 tflint = "latest"

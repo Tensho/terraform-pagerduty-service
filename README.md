@@ -121,7 +121,7 @@ Check out comprehensive examples in [`examples`](./examples) folder.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | 3.30.1 |
+| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | ~> 3.26 |
 
 ## Modules
 
@@ -134,6 +134,7 @@ No modules.
 | [pagerduty_alert_grouping_setting.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/alert_grouping_setting) | resource |
 | [pagerduty_business_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/business_service) | resource |
 | [pagerduty_event_orchestration_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/event_orchestration_service) | resource |
+| [pagerduty_maintenance_window.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/maintenance_window) | resource |
 | [pagerduty_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service) | resource |
 | [pagerduty_service_dependency.dependent](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_dependency) | resource |
 | [pagerduty_service_dependency.supporting](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/service_dependency) | resource |
@@ -160,6 +161,7 @@ No modules.
 | <a name="input_escalation_policy_id"></a> [escalation\_policy\_id](#input\_escalation\_policy\_id) | PagerDuty service escalation policy ID. | `string` | `null` | no |
 | <a name="input_event_orchestration"></a> [event\_orchestration](#input\_event\_orchestration) | PagerDuty service event orchestration configuration. | <pre>object({<br/>    enable_event_orchestration_for_service = optional(bool, true)<br/>    sets = optional(list(object({<br/>      id = string<br/>      rules = list(object({<br/>        label = optional(string)<br/>        condition = optional(object({<br/>          expression = string<br/>        }))<br/>        actions = object({<br/>          annotate             = optional(string)<br/>          escalation_policy_id = optional(string)<br/>          priority_id          = optional(string)<br/>          route_to             = optional(string)<br/>          suppress             = optional(bool)<br/>          suspend_seconds      = optional(number)<br/>          variables = optional(list(object({<br/>            name  = string<br/>            path  = string<br/>            value = string<br/>            type  = string<br/>          })), [])<br/>          extractions = optional(list(object({<br/>            target   = string<br/>            template = optional(string)<br/>            source   = optional(string)<br/>            regex    = optional(string)<br/>          })), [])<br/>          incident_custom_field_updates = optional(list(object({<br/>            id    = string<br/>            value = string<br/>          })), [])<br/>          automation_action = optional(object({<br/>            name          = string<br/>            url           = string<br/>            auto_send     = optional(bool, false)<br/>            trigger_types = optional(list(string), [])<br/>            parameters = optional(list(object({<br/>              key   = string<br/>              value = string<br/>            })), [])<br/>            headers = optional(list(object({<br/>              key   = string<br/>              value = string<br/>            })), [])<br/>          }))<br/>          pagerduty_automation_action = optional(object({<br/>            action_id     = string<br/>            trigger_types = optional(list(string), [])<br/>          }))<br/>        })<br/>      }))<br/>    })), [])<br/>    catch_all = optional(object({<br/>      actions = object({<br/>        annotate             = optional(string)<br/>        escalation_policy_id = optional(string)<br/>        priority_id          = optional(string)<br/>        suppress             = optional(bool)<br/>        suspend_seconds      = optional(number)<br/>        pagerduty_automation_action = optional(object({<br/>          action_id     = string<br/>          trigger_types = optional(list(string), [])<br/>        }))<br/>      })<br/>    }))<br/>  })</pre> | `null` | no |
 | <a name="input_incident_urgency_rule"></a> [incident\_urgency\_rule](#input\_incident\_urgency\_rule) | PagerDuty service incident urgency rule. | <pre>object({<br/>    type    = string<br/>    urgency = optional(string)<br/>    during_support_hours = optional(object({<br/>      type    = string<br/>      urgency = string<br/>    }))<br/>    outside_support_hours = optional(object({<br/>      type    = string<br/>      urgency = string<br/>    }))<br/>  })</pre> | `null` | no |
+| <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | PagerDuty service maintenance window configuration. | <pre>object({<br/>    start_time  = string<br/>    end_time    = string<br/>    description = optional(string, "Managed by Terraform")<br/>  })</pre> | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | PagerDuty service name | `string` | n/a | yes |
 | <a name="input_newrelic_integration_enabled"></a> [newrelic\_integration\_enabled](#input\_newrelic\_integration\_enabled) | PagerDuty service NewRelic integration switch. | `bool` | `false` | no |
 | <a name="input_point_of_contact"></a> [point\_of\_contact](#input\_point\_of\_contact) | PagerDuty business service point fo contact. | `string` | `null` | no |
@@ -176,6 +178,7 @@ No modules.
 | <a name="output_cloudwatch_integration_key"></a> [cloudwatch\_integration\_key](#output\_cloudwatch\_integration\_key) | PagerDuty service CloudWatch integration key. |
 | <a name="output_datadog_integration_key"></a> [datadog\_integration\_key](#output\_datadog\_integration\_key) | PagerDuty service DataDog integration key. |
 | <a name="output_newrelic_integration_key"></a> [newrelic\_integration\_key](#output\_newrelic\_integration\_key) | PagerDuty service NewRelic integration key. |
+| <a name="output_pagerduty_maintenance_window"></a> [pagerduty\_maintenance\_window](#output\_pagerduty\_maintenance\_window) | PagerDuty service maintenance window. |
 | <a name="output_pagerduty_service"></a> [pagerduty\_service](#output\_pagerduty\_service) | PagerDuty service. |
 <!-- END_TF_DOCS -->
 

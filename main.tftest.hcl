@@ -111,4 +111,26 @@ run "defaults" {
 
     error_message = "PagerDuty service event orchestration is disabled"
   }
+
+  assert {
+    condition = length(pagerduty_maintenance_window.default) == 0
+
+    error_message = "PagerDuty service maintenance window is disabled"
+  }
+}
+
+run "maintenance_window" {
+  variables {
+    maintenance_window = {
+      start_time  = "2026-03-01T20:00:00-05:00"
+      end_time    = "2026-03-01T22:00:00-05:00"
+      description = "Scheduled maintenance (managed by Terraform)"
+    }
+  }
+
+  assert {
+    condition = length(pagerduty_maintenance_window.default) != 0
+
+    error_message = "PagerDuty service maintenance window is enabled"
+  }
 }
