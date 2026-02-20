@@ -6,4 +6,7 @@
 terraform.tfstate*
 .terraform.lock.hcl
 
+# Claude
+.claude
+
 .env
