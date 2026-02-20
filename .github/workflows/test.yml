@@ -38,8 +38,22 @@ jobs:
         with:
           terraform_version: "1.7.0"
 
-      - run: terraform init && terraform apply -auto-approve && terraform destroy -auto-approve
+      - run: terraform init
         working-directory: ./examples/business-service
 
-      - run: terraform init && terraform apply -auto-approve && terraform destroy -auto-approve
+      - run: terraform apply -auto-approve
+        working-directory: ./examples/business-service
+
+      - run: terraform destroy -auto-approve
+        if: always()
+        working-directory: ./examples/business-service
+
+      - run: terraform init
+        working-directory: ./examples/technical-service
+
+      - run: terraform apply -auto-approve
+        working-directory: ./examples/technical-service
+
+      - run: terraform destroy -auto-approve
+        if: always()
         working-directory: ./examples/technical-service
