@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.5.0...v1.6.0) (2026-02-20)
+
+
+### Features
+
+* **pagerduty_maintenance_window:** add resource to composition ([#10](https://github.com/Tensho/terraform-pagerduty-service/issues/10)) ([9a37d5b](https://github.com/Tensho/terraform-pagerduty-service/commit/9a37d5bf3661bcb867d0dee8925148543e9bb228))
+
 ## [1.5.0](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.4.0...v1.5.0) (2025-06-19)
 
 
