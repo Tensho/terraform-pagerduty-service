@@ -1,3 +1,9 @@
+terraform {
+  backend "gcs" {
+    prefix = "terraform-pagerduty-service/examples/technical-service"
+  }
+}
+
 #################
 # Prerequisites #
 #################
