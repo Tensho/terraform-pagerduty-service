@@ -77,7 +77,7 @@ resource "pagerduty_service" "default" {
 }
 
 resource "pagerduty_service_dependency" "dependent" {
-  for_each = { for service in var.service_graph.dependent_services : service.name => service }
+  for_each = !var.business ? { for service in var.service_graph.dependent_services : service.name => service } : {}
 
   dependency {
     dependent_service {
@@ -93,7 +93,7 @@ resource "pagerduty_service_dependency" "dependent" {
 }
 
 resource "pagerduty_service_dependency" "supporting" {
-  for_each = { for service in var.service_graph.supporting_services : service.name => service }
+  for_each = !var.business ? { for service in var.service_graph.supporting_services : service.name => service } : {}
 
   dependency {
     dependent_service {

@@ -1,5 +1,5 @@
 resource "pagerduty_slack_connection" "default" {
-  count = var.slack_connection != null ? 1 : 0
+  count = !var.business && var.slack_connection != null ? 1 : 0
 
   source_type       = "service_reference"
   source_id         = pagerduty_service.default[0].id
