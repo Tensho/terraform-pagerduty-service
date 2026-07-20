@@ -1,9 +1,7 @@
 [tools]
 act = "latest"
+fnox = "latest"
 prek = "latest"
 terraform = "latest"
 terraform-docs = "latest"
 tflint = "latest"
-
-[env]
-_.file = '.env'

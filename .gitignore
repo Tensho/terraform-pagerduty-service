@@ -9,4 +9,4 @@ terraform.tfstate*
 # Claude
 .claude
 
-.env
+fnox.local.toml
