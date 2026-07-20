@@ -120,14 +120,14 @@ Check out comprehensive examples in [`examples`](./examples) folder.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.7.0 |
 | <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | ~> 3.26 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | ~> 3.26 |
 
 ## Modules
@@ -137,7 +137,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [pagerduty_alert_grouping_setting.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/alert_grouping_setting) | resource |
 | [pagerduty_business_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/business_service) | resource |
 | [pagerduty_event_orchestration_service.default](https://registry.terraform.io/providers/pagerduty/pagerduty/latest/docs/resources/event_orchestration_service) | resource |
@@ -156,7 +156,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_acknowledgement_timeout"></a> [acknowledgement\_timeout](#input\_acknowledgement\_timeout) | PagerDuty service incident acknowledged-to-triggered state change time in seconds. | `string` | `"null"` | no |
 | <a name="input_alert_grouping_setting"></a> [alert\_grouping\_setting](#input\_alert\_grouping\_setting) | PagerDuty service alert grouping configuration. | <pre>object({<br/>    type = string,<br/>    config = object({<br/>      timeout     = optional(number, 0),<br/>      aggregate   = optional(string),<br/>      fields      = optional(list(string), []),<br/>      time_window = optional(number, 0),<br/>    })<br/>  })</pre> | `null` | no |
 | <a name="input_auto_pause_notifications_parameters"></a> [auto\_pause\_notifications\_parameters](#input\_auto\_pause\_notifications\_parameters) | PagerDuty service transient incident auto pause before triggering (AIOps add-on). | <pre>object({<br/>    enabled = bool,<br/>    timeout = number,<br/>  })</pre> | <pre>{<br/>  "enabled": false,<br/>  "timeout": null<br/>}</pre> | no |
@@ -181,7 +181,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_cloudwatch_integration_key"></a> [cloudwatch\_integration\_key](#output\_cloudwatch\_integration\_key) | PagerDuty service CloudWatch integration key. |
 | <a name="output_datadog_integration_key"></a> [datadog\_integration\_key](#output\_datadog\_integration\_key) | PagerDuty service DataDog integration key. |
 | <a name="output_newrelic_integration_key"></a> [newrelic\_integration\_key](#output\_newrelic\_integration\_key) | PagerDuty service NewRelic integration key. |
