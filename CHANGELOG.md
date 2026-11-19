@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.6.0...v1.7.0) (2026-11-19)
+
+
+### Features
+
+* **integration:** add events api v2 service integration ([#13](https://github.com/Tensho/terraform-pagerduty-service/issues/13)) ([f3a3f1e](https://github.com/Tensho/terraform-pagerduty-service/commit/f3a3f1e4b17914c2605dcc92f155d32deb7ca19a))
+
 ## [1.6.0](https://github.com/Tensho/terraform-pagerduty-service/compare/v1.5.0...v1.6.0) (2026-02-20)
 
 
