@@ -4,9 +4,10 @@ variables {
   name                 = "Test"
   escalation_policy_id = "ABCDEFG"
 
-  cloudwatch_integration_enabled = true
-  datadog_integration_enabled    = true
-  newrelic_integration_enabled   = true
+  cloudwatch_integration_enabled    = true
+  datadog_integration_enabled       = true
+  newrelic_integration_enabled      = true
+  events_api_v2_integration_enabled = true
 }
 
 run "integrations" {
@@ -26,5 +27,11 @@ run "integrations" {
     condition = length(pagerduty_service_integration.newrelic) != 0
 
     error_message = "PagerDuty service NewRelic integration is enabled"
+  }
+
+  assert {
+    condition = length(pagerduty_service_integration.events_api_v2) != 0
+
+    error_message = "PagerDuty service Events API V2 integration is enabled"
   }
 }

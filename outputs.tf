@@ -22,3 +22,8 @@ output "newrelic_integration_key" {
   value       = length(pagerduty_service_integration.newrelic) > 0 ? pagerduty_service_integration.newrelic[0].integration_key : null
   description = "PagerDuty service NewRelic integration key."
 }
+
+output "events_api_v2_integration_key" {
+  value       = length(pagerduty_service_integration.events_api_v2) > 0 ? pagerduty_service_integration.events_api_v2[0].integration_key : null
+  description = "PagerDuty service Events API V2 integration key."
+}

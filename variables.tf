@@ -169,6 +169,12 @@ variable "newrelic_integration_enabled" {
   default     = false
 }
 
+variable "events_api_v2_integration_enabled" {
+  description = "PagerDuty service Events API V2 integration switch."
+  type        = bool
+  default     = false
+}
+
 variable "slack_connection" {
   description = "PagerDuty service Slack connection configuration."
 
