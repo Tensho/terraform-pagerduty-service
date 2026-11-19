@@ -21,3 +21,11 @@ resource "pagerduty_service_integration" "newrelic" {
   vendor  = data.pagerduty_vendor.newrelic[0].id
   service = pagerduty_service.default[0].id
 }
+
+resource "pagerduty_service_integration" "events_api_v2" {
+  count = !var.business && var.events_api_v2_integration_enabled ? 1 : 0
+
+  name    = "Events API V2"
+  type    = "events_api_v2_inbound_integration"
+  service = pagerduty_service.default[0].id
+}
